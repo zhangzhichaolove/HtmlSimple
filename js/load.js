@@ -11,8 +11,36 @@ window.onload = function () {
     new_element.setAttribute("type", "text/javascript");
     new_element.setAttribute("src", "http://renjian.163.com/special/000158D9/renjian_mobile_series.js");
     document.body.appendChild(new_element);
-    ajaxPost("http://renjian.163.com/special/000158D9/renjian_mobile_series.js")
+    //ajaxPost("http://renjian.163.com/special/000158D9/renjian_mobile_series.js")
 }
+
+function include_js(file) {
+    var _doc = document.getElementsByTagName('head')[0];
+    var js = document.createElement('script');
+    js.setAttribute('type', 'text/javascript');
+    js.setAttribute('src', file);
+    _doc.appendChild(js);
+    //判断非IE浏览器（准确的说只能够判断到IE10）。
+    if (!/*@cc_on!@*/0) { //if not IE
+        js.onload = function () {
+            console.log("文件加载完毕");
+            var reader = new FileReader();
+            reader.onload = function () {
+                console.log("this.result", this.result);
+            }
+            reader.readAsText(file);
+        }
+    } else {
+        js.onreadystatechange = function () {
+            if (js.readyState == 'loaded' || js.readyState == 'complete') {
+                console.log("文件加载完毕");
+            }
+        }
+    }
+    return false;
+}
+
+include_js('http://www.softwhy.com/mytest/jQuery/jquery-1.8.3.js');
 
 
 //ajax 对象
@@ -56,5 +84,5 @@ function ajaxPost(url) {
 
 
 function callback(json) {
-    console.log(json)
+    console.log("json", json)
 }

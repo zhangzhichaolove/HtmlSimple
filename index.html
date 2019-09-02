@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <link rel="icon" href="favicon.ico" type="image/x-icon"/>
     <script src="js/load.js"></script>
+    <script type="text/javascript">
+        document.onreadystatechange = subSomething;//当页面加载状态改变的时候执行这个方法.
+        function subSomething() {
+            if (document.readyState == "complete") {
+                console.log("complete")
+            } //当页面加载状态
+        }
+    </script>
     <title>peakchao-官方主页</title>
 </head>
 <body>
